@@ -1,0 +1,40 @@
+{
+  "name": "babyfs-mina-purejs",
+  "version": "0.0.1",
+  "description": "BABYFS-MINA-PUREJS",
+  "main": "index.js",
+  "scripts": {
+    "dev": "eslint --ext .js src --fix && gulp dev --develop",
+    "lint": "eslint --ext .js src gulpfile.js  --fix",
+    "build": "gulp build"
+  },
+  "author": "Jerry",
+  "license": "ISC",
+  "devDependencies": {
+    "del": "^3.0.0",
+    "eslint": "^5.8.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "gulp": "^4.0.0",
+    "gulp-eslint": "^5.0.0",
+    "path": "^0.12.7",
+    "webpack-stream": "^5.1.1"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JerryCjr/babyfs-mina-purejs.git"
+  },
+  "keywords": [
+    "babyfs",
+    "mina",
+    "purejs"
+  ],
+  "bugs": {
+    "url": "https://github.com/JerryCjr/babyfs-mina-purejs/issues"
+  },
+  "homepage": "https://github.com/JerryCjr/babyfs-mina-purejs#readme"
+}
