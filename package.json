@@ -1,13 +1,13 @@
 {
   "name": "babyfs-mina-purejs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "BABYFS-MINA-PUREJS",
   "main": "./miniprogram_dist/index.js",
   "scripts": {
     "dev": "eslint --ext .js src --fix && gulp dev --develop",
-    "lint": "eslint --ext .js src gulpfile.js  --fix",
-    "build": "gulp build",
-    "publish": "gulp build && npm publish"
+    "lint": "eslint --ext .js src --fix",
+    "build": "eslint --ext .js src --fix && gulp build",
+    "prepublish": "npm run build"
   },
   "author": "Jerry",
   "license": "ISC",
