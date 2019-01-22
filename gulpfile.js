@@ -8,8 +8,9 @@ const eslint = require('gulp-eslint');
 
 // path
 const srcPath = './src/*.js';
-const buildDistPath = './miniprogram_dist';
-const devDistPath = './miniprogram_dev/miniprogram_npm';
+const buildPath = './miniprogram_dist';
+const devPath = './miniprogram_dev';
+const devJsPath = `${devPath}/miniprogram_npm`;
 
 const demoSrc = './tools/demo';
 const demoDistPath = './miniprogram_dev';
@@ -19,7 +20,7 @@ const isDev = process.argv.indexOf('--develop') >= 0;
 
 // clean
 gulp.task('clean', done => {
-  del.sync([`${buildDistPath}/**`, `${devDistPath}/**`]);
+  del.sync([`${buildPath}/**`, `${devPath}/**`]);
   done();
 });
 
@@ -46,7 +47,7 @@ const js = () => {
         }
       })
     )
-    .pipe(gulp.dest(isDev ? devDistPath : buildDistPath));
+    .pipe(gulp.dest(isDev ? devJsPath : buildPath));
 };
 gulp.task(js);
 
