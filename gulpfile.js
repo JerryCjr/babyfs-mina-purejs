@@ -8,18 +8,18 @@ const eslint = require('gulp-eslint');
 
 // path
 const srcPath = './src/*.js';
-const buildDistPath = './dist/';
-const devDistPath = './miniprogram_demo/miniprogram_npm';
+const buildDistPath = './miniprogram_dist';
+const devDistPath = './miniprogram_dev/miniprogram_npm';
 
-const demoSrc = './tools/demo/';
-const demoDistPath = './miniprogram_demo/';
+const demoSrc = './tools/demo';
+const demoDistPath = './miniprogram_dev';
 
 // env
 const isDev = process.argv.indexOf('--develop') >= 0;
 
 // clean
 gulp.task('clean', done => {
-  del.sync(['./dist/**', './miniprogram_demo/**']);
+  del.sync([`${buildDistPath}/**`, `${devDistPath}/**`]);
   done();
 });
 
@@ -41,7 +41,7 @@ const js = () => {
         mode: isDev ? 'development' : 'production',
         devtool: isDev ? 'source-map' : 'none',
         output: {
-          filename: 'bundle.js',
+          filename: 'index.js',
           libraryTarget: 'commonjs2'
         }
       })
@@ -66,7 +66,7 @@ gulp.task('watch', () => {
 });
 
 // build
-gulp.task('build', gulp.series('clean', 'demo', 'js'));
+gulp.task('build', gulp.series('clean', 'js'));
 
 // dev
-gulp.task('dev', gulp.series('build', 'watch'));
+gulp.task('dev', gulp.series('clean', 'demo', 'js', 'watch'));

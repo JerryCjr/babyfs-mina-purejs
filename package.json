@@ -2,7 +2,7 @@
   "name": "babyfs-mina-purejs",
   "version": "0.0.1",
   "description": "BABYFS-MINA-PUREJS",
-  "main": "index.js",
+  "main": "./miniprogram_dist/index.js",
   "scripts": {
     "dev": "eslint --ext .js src --fix && gulp dev --develop",
     "lint": "eslint --ext .js src gulpfile.js  --fix",
