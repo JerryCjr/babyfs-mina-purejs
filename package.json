@@ -7,7 +7,7 @@
     "dev": "eslint --ext .js src --fix && gulp dev --develop",
     "lint": "eslint --ext .js src --fix",
     "build": "eslint --ext .js src --fix && gulp build",
-    "prepublish": "npm run build"
+    "prepublish": "npm shrink && npm run build"
   },
   "author": "Jerry",
   "license": "ISC",
