@@ -13,8 +13,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.2.3",
-	"appid": "",
-	"projectname": "miniprogram-demo",
+	"appid": "wxaea4adb81dc0ec33",
+	"projectname": "babyfs-mina-purejs",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
