@@ -1,13 +1,14 @@
 {
   "name": "babyfs-mina-purejs",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "BABYFS-MINA-PUREJS",
   "main": "miniprogram_dist/index.js",
   "scripts": {
-    "dev": "eslint --ext .js src --fix && gulp dev --development",
-    "build": "eslint --ext .js src --fix && gulp build --production",
-    "prepublishOnly": "npm shrink && npm run build",
-    "lint": "eslint --ext .js src --fix"
+    "lint": "eslint --ext .js src --fix",
+    "codeshift": "jscodeshift src pages app.js -t ./tools/transformer.js",
+    "dev": "npm run codeshift && eslint --ext .js src --fix && gulp dev --development",
+    "build": "npm run codeshift && eslint --ext .js src --fix && gulp build --production",
+    "prepublishOnly": "npm shrink && npm run build"
   },
   "author": "chengjinrui",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "gulp": "^4.0.0",
     "gulp-replace": "^1.0.0",
     "gulp-eslint": "^5.0.0",
+    "jscodeshift": "^0.6.3",
     "path": "^0.12.7"
   },
   "dependencies": {},
