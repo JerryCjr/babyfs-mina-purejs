@@ -1,17 +1,9 @@
-const path = require('path');
 export default function transformer(file, api) {
   const j = api.jscodeshift;
   const source = j(file.source);
   const arr = source.find(j.ImportDefaultSpecifier);
-
-  const relative = path.relative(path.dirname(file.path), 'miniprogram_npm');
   let runtimeDeclared = false;
-  let runtimePath;
-  if (path.dirname(file.path) === 'src') {
-    runtimePath = `import regeneratorRuntime from '@/babyfs-wxapp-runningtime/index.js';`;
-  } else {
-    runtimePath = `import regeneratorRuntime from '${relative}/babyfs-wxapp-runningtime/index.js';`;
-  }
+  const runtimePath = `import regeneratorRuntime from '@/babyfs-wxapp-runningtime/index.js';`;
 
   if (arr.length) {
     arr.forEach((path) => {

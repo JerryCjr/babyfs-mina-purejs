@@ -7,7 +7,7 @@ const replace = require('gulp-replace');
 const _ = require('./tools/utils.js');
 
 // path
-const jsFiles = './src/*.js';
+const jsFiles = './src/**/*.js';
 const distPath = './miniprogram_dist';
 
 // env
@@ -60,8 +60,9 @@ const js = () => {
     }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
-    .pipe(replace(/@\/.*/ig, value => {
-      return isBuild ? value.replace(/@/, '..') : value.replace(/@/, '../miniprogram_npm');
+    .pipe(replace(/@\/.*/ig, function (value) {
+      const relative = path.relative(path.dirname(this.file.path), 'miniprogram_npm');
+      return isBuild ? value.replace(/@/, relative.replace(/\/miniprogram_npm/, '')) : value.replace(/@/, relative);
     }))
     .pipe(gulp.dest(distPath));
 };
