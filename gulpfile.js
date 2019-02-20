@@ -22,7 +22,7 @@ gulp.task('clean', done => {
 // runtime
 gulp.task('runtime', function () {
   return gulp
-    .src('./offical/**/*')
+    .src('./official/**/*')
     .pipe(gulp.dest('./miniprogram_npm'));
 });
 
@@ -37,8 +37,8 @@ gulp.task('install', async done => {
   };
   const comDirNames = await _.globSync(`+(${BABYFS_PUREJS}*)/`, globOptions);
   await _.removeDir(`${dirPath}`);
-  // offical包的拷贝
-  gulp.src('./offical/**/*')
+  // official包的拷贝
+  gulp.src('./official/**/*')
     .pipe(gulp.dest('./miniprogram_npm'));
   // node_modules包的拷贝 eg: node_modules/babyfs-wxapp-request/miniprogram_dist/index.js => miniprogram_npm/babyfs-wxapp-request/index.js
   for (let i = 0, len = comDirNames.length; i < len; i++) {
