@@ -1,13 +1,12 @@
 {
   "name": "babyfs-mina-purejs",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "BABYFS-MINA-PUREJS",
   "main": "miniprogram_dist/index.js",
   "scripts": {
     "lint": "eslint --ext .js src --fix",
-    "codeshift": "jscodeshift src pages app.js -t ./tools/transformer.js",
-    "dev": "npm run codeshift && eslint --ext .js src --fix && gulp dev --development",
-    "build": "npm run codeshift && eslint --ext .js src --fix && gulp build --production",
+    "dev": "eslint --ext .js src --fix && gulp dev --development",
+    "build": "eslint --ext .js src --fix && gulp build --production",
     "prepublishOnly": "npm shrink && npm run build"
   },
   "author": "chengjinrui",
@@ -26,7 +25,10 @@
     "jscodeshift": "^0.6.3",
     "path": "^0.12.7"
   },
-  "dependencies": {},
+  "dependencies": {
+    "babyfs-wxapp-runningtime": "^1.1.1",
+    "babyfs-wxapp-storage": "^1.1.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JerryCjr/babyfs-mina-purejs.git"

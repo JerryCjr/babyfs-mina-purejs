@@ -3,8 +3,8 @@ module.exports = {
   rules: {
     'semi': ['error', 'always'],
     'space-before-function-paren': 'off',
-    "no-unused-vars": ["error", {
-      "varsIgnorePattern": "regeneratorRuntime"
+    'no-unused-vars': ['error', {
+      'varsIgnorePattern': 'regeneratorRuntime'
     }]
   },
   globals: {

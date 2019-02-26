@@ -143,7 +143,6 @@ async function removeDir(dirPath) {
   });
 }
 
-
 module.exports = {
   recursiveMkdir,
   globSync,
@@ -152,5 +151,5 @@ module.exports = {
   writeFile,
   removeDir,
   getTemplateDir,
-  checkDirExist,
+  checkDirExist
 };
