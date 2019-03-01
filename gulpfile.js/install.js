@@ -4,6 +4,7 @@ const {
 } = require('gulp');
 const path = require('path');
 const _ = require('../tools/utils.js');
+const codemod = require('./codemod.js');
 
 // miniprogram_npm依赖导入
 module.exports = async function (cb) {
@@ -23,6 +24,7 @@ module.exports = async function (cb) {
   for (let i = 0, len = comDirNames.length; i < len; i++) {
     const filePath = comDirNames[i].slice(0, -1);
     src(path.join(cwd, filePath, 'miniprogram_dist/**'))
+      .pipe(codemod('install'))
       .pipe(dest(path.join(dirPath, filePath)));
   }
 

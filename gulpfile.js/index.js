@@ -31,7 +31,7 @@ function copy() {
 function demoJs() {
   return gulp
     .src(demoJsPath)
-    .pipe(codemod())
+    .pipe(codemod('demo'))
     .pipe(gulp.dest(distPath));
 }
 
@@ -49,7 +49,7 @@ function jsDev() {
     }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
-    .pipe(codemod('dist'))
+    .pipe(codemod('src'))
     .pipe(replace(/@\/.*/ig, function (value) {
       const relative = path.relative(path.dirname(this.file.path), 'miniprogram_npm');
       return value.replace(/@/, relative);
@@ -87,4 +87,4 @@ gulp.task('watch', () => {
   gulp.watch(demoPath, copy);
   gulp.watch(demoJsPath, demoJs);
 });
-gulp.task('dev', gulp.series(clean, gulp.parallel(copy, demoJs, install, jsDev), 'watch'));
+gulp.task('dev', gulp.series(clean, install, gulp.parallel(copy, demoJs, jsDev), 'watch'));
