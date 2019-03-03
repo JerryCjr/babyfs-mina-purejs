@@ -4,6 +4,7 @@ module.exports = {
     'semi': ['error', 'always'],
     'space-before-function-paren': 'off',
     'no-unused-vars': ['error', {
+      'args': 'none',
       'varsIgnorePattern': 'regeneratorRuntime'
     }]
   },

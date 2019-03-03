@@ -6,11 +6,11 @@
 
 ```javascript
 babyfs-mina-purejs
+├── demo                  // 小程序运行文件
 ├── miniprogram_dist      // Production环境下的构建文件
-├── miniprogram_npm       // 工程依赖的npm包资源
+├── dist                  // Development环境下的运行
+├── gulpfile.js           // gulp配置文件
 ├── node_modules          // 项目依赖
-├── official              // 三方依赖(runtime...)
-├── pages                 // pages
 ├── src
 │    ├── index.js         // purejs
 ├── tools                 // utils
@@ -18,13 +18,8 @@ babyfs-mina-purejs
 ├── .eslintrc.js
 ├── .gitignore
 ├── .npmignore
-├── app.js
-├── app.json
-├── app.wxss
-├── gulpfile.js           // gulp配置文件
 ├── npm-shrinkwrap.json
 ├── package.json
-├── project.config.json // 项目配置文件
 └── README.md
 ```
 
