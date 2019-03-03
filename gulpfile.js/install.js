@@ -7,7 +7,7 @@ const _ = require('../tools/utils.js');
 const codemod = require('./codemod.js');
 
 // miniprogram_npm依赖导入
-module.exports = async function (cb) {
+module.exports = async function install (cb) {
   const cwd = path.resolve('node_modules');
   const dirPath = path.resolve('dist/miniprogram_npm');
   const OFFICIAL_COMPONENT = 'miniprogram-'; // 官方自定义组件

@@ -1,6 +1,13 @@
-const del = require('del');
-const gulp = require('gulp');
 const path = require('path');
+const del = require('del');
+const {
+  src,
+  dest,
+  series,
+  parallel,
+  lastRun,
+  watch
+} = require('gulp');
 const eslint = require('gulp-eslint');
 const replace = require('gulp-replace');
 
@@ -23,30 +30,24 @@ const install = require('./install.js');
 const codemod = require('./codemod.js');
 
 function copy() {
-  return gulp
-    .src(demoPath)
-    .pipe(gulp.dest(distPath));
+  return src(demoPath)
+    .pipe(dest(distPath));
 }
 
-function demoJs() {
-  return gulp
-    .src(demoJsPath)
+function jsDemo() {
+  return src(demoJsPath)
     .pipe(codemod('demo'))
-    .pipe(gulp.dest(distPath));
+    .pipe(dest(distPath));
 }
+jsDemo.displayName = 'js:demo';
 
 async function clean() {
   await del([`${distPath}`, `${distPath}/**/*`, `${buildPath}`, `${buildPath}/**/*`]);
 }
 
 function jsDev() {
-  return gulp
-    .src(jsFiles, {
-      since: gulp.lastRun(jsDev)
-    })
-    .pipe(eslint({
-      fix: true
-    }))
+  return src(jsFiles, { since: lastRun(jsDev) })
+    .pipe(eslint({ fix: true }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
     .pipe(codemod('src'))
@@ -54,37 +55,39 @@ function jsDev() {
       const relative = path.relative(path.dirname(this.file.path), 'miniprogram_npm');
       return value.replace(/@/, relative);
     }))
-    .pipe(gulp.dest(jsDistPath));
+    .pipe(dest(jsDistPath));
 }
 jsDev.displayName = 'js:dev';
 
 function jsBuild() {
-  return gulp
-    .src(jsFiles, {
-      since: gulp.lastRun(jsDev)
-    })
-    .pipe(eslint({
-      fix: true
-    }))
+  return src(jsFiles, { since: lastRun(jsDev) })
+    .pipe(eslint({ fix: true }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
     .pipe(replace(/@\/.*/ig, function (value) {
       const relative = path.relative(path.dirname(this.file.path), 'miniprogram_npm');
       return value.replace(/@/, relative.replace(/\/miniprogram_npm/, ''));
     }))
-    .pipe(gulp.dest(jsDistPath));
+    .pipe(dest(jsDistPath));
 }
 jsBuild.displayName = 'js:build';
 
-gulp.task(copy);
-gulp.task(demoJs);
-gulp.task(clean);
-gulp.task(jsDev);
-gulp.task(jsBuild);
-gulp.task('build', gulp.series(clean, jsBuild));
-gulp.task('watch', () => {
-  gulp.watch(jsFiles, jsDev);
-  gulp.watch(demoPath, copy);
-  gulp.watch(demoJsPath, demoJs);
-});
-gulp.task('dev', gulp.series(clean, install, gulp.parallel(copy, demoJs, jsDev), 'watch'));
+function watcher() {
+  watch(jsFiles, jsDev);
+  watch(demoPath, copy);
+  watch(demoJsPath, jsDemo);
+}
+
+const build = series(clean, jsBuild);
+const dev = series(clean, install, parallel(copy, jsDemo, jsDev), watcher);
+
+module.exports = {
+  copy,
+  jsDemo,
+  clean,
+  jsDev,
+  jsBuild,
+  dev,
+  build,
+  watcher
+};
