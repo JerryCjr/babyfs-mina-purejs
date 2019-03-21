@@ -143,11 +143,26 @@ async function removeDir(dirPath) {
   });
 }
 
+/**
+ * 读取 json
+ */
+function readJson(filePath) {
+  try {
+    // eslint-disable-next-line import/no-dynamic-require
+    const content = require(filePath);
+    delete require.cache[require.resolve(filePath)];
+    return content;
+  } catch (err) {
+    return null;
+  }
+}
+
 module.exports = {
   recursiveMkdir,
   globSync,
   copyFile,
   readFile,
+  readJson,
   writeFile,
   removeDir,
   getTemplateDir,

@@ -24,10 +24,12 @@ const demoPath = ['demo/**/*', '!demo/**/*.js'];
 const demoJsPath = 'demo/**/*.js';
 const distPath = 'dist';
 
+// shift
+const shift = require('./dependency/shift');
 // install
-const install = require('./install.js');
-// codemod
-const codemod = require('./codemod.js');
+const install = require('./dependency/install');
+// dependency
+const dependency = require('./dependency').dependency;
 
 function copy() {
   return src(demoPath)
@@ -36,7 +38,8 @@ function copy() {
 
 function jsDemo() {
   return src(demoJsPath)
-    .pipe(codemod('demo'))
+    .pipe(shift())
+    .pipe(dependency())
     .pipe(dest(distPath));
 }
 jsDemo.displayName = 'js:demo';
@@ -50,7 +53,8 @@ function jsDev() {
     .pipe(eslint({ fix: true }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
-    .pipe(codemod('src'))
+    .pipe(shift())
+    .pipe(dependency())
     .pipe(replace(/@\/.*/ig, function (value) {
       const relative = path.relative(path.dirname(this.file.path), 'miniprogram_npm');
       return value.replace(/@/, relative);
