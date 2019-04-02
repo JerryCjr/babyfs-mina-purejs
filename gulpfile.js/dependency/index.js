@@ -109,7 +109,7 @@ function resolving(filePath, externalPath, type) {
       targetDirectory = 'dist/miniprogram_npm';
       installedDirectory = path.resolve(targetDirectory, packageJson.name);
       copyDestImportFile = path.resolve(installedDirectory, `${packageJson.main}`);
-      if (/src\/index.js/.test(filePath)) {
+      if (/src\/.*/.test(filePath)) {
         externalRelativePath = path.relative(filePath, assumedPathDev(filePath, copyDestImportFile));
       } else {
         externalRelativePath = path.relative(path.dirname(filePath), assumedPathDev(filePath, copyDestImportFile));
